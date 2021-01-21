@@ -1,17 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState } from 'react';
+import ReactDom from 'react-dom';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import {people} from './people';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
+function Birthday(){
+    const [count,setCount]= useState(5);
+    const [person,setPeople]= React.useState(people);
+    const getCount=()=>{
+    setCount(0);
+    setPeople([]);
+}
+    return(
+    <section className="birthday">
+        <h1> {count} Birthdays Today</h1>
+         {person.map((iterate)=>{
+        const {id, img,Name, Age}= iterate;
+        return (
+            <div key={id} className="people">
+                <img src={img} alt=""/>
+                <h2>{Name}</h2>
+                <h1>{Age}</h1>
+            </div>
+        );
+    })}
+    <button type="button" className="btn" onClick={getCount}> Clear All</button>
+    </section>)
+}
+
+ReactDom.render(<Birthday/>, document.getElementById('root'));
